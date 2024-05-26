@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addPost } from "../store/reducers/blogSlice";
 import { setPopup } from "../store/reducers/popupSlice";
@@ -16,17 +16,11 @@ const New = () => {
   const [footerType, setFooterType] = useState();
   const [searchBar, setSearchBar] = useState();
   const [profileIcon, setProfileIcon] = useState();
+  const [imageBaseUrl, setImageBaseUrl] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("sxx", {
-      title,
-      brandName,
-      description,
-      footerType,
-      searchBar,
-      profileIcon,
-    });
+
     dispatch(
       addPost({
         title,
@@ -35,6 +29,7 @@ const New = () => {
         footerType,
         searchBar,
         profileIcon,
+        imageBaseUrl
       })
     );
     setBrandName("");
@@ -43,10 +38,36 @@ const New = () => {
     setFooterType(0);
     setSearchBar(false);
     setProfileIcon(false);
+    setImageBaseUrl("")
     dispatch(
       setPopup({ message: "Landing Page created successfully", active: true })
     );
     router.push("/");
+  };
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    // Check if there's an image stored in local storage
+    const storedImage = localStorage.getItem("uploadedImage");
+    if (storedImage) {
+      setSelectedImage(storedImage);
+    }
+  }, []);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result;
+        setSelectedImage(base64String);
+        setImageBaseUrl(base64String);
+        // localStorage.setItem("uploadedImage", base64String);
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -61,7 +82,11 @@ const New = () => {
           <LeftArrow className="w-5 h-5 " />
           <p className="!m-0 !p-0">Create Landing Page</p>
         </div>
-
+        {/* <img
+              src={selectedImage}
+              alt="Selected"
+              className="max-w-xs rounded-lg shadow-md"
+            /> */}
         <form
           className="flex flex-col gap-1 items-center justify-center p-2 h-[40em] bg-base-300 w-[80em] shadow-md rounded-lg mt-0"
           onSubmit={handleSubmit}
@@ -108,9 +133,10 @@ const New = () => {
                 <span className="label-text">Hero Image</span>
               </div>
               <input
+                accept="image/*"
+                onChange={handleImageChange}
                 type="file"
                 className="file-input file-input-bordered w-full max-w-xs"
-                onChange={(e, p) => console.log("e", e.target.value, p)}
               />
             </label>
 
