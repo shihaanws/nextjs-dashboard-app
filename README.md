@@ -1,16 +1,11 @@
-<div style="text-align:center;">
 
-![PageLab](https://github.com/shihaanws/nextjs-dashboard-app/blob/main/PageLab%20(1).png)
-Create and manage Landing Pages seamlessly!
-
-</div>
 
 <p align="center">
   <img src="https://github.com/shihaanws/nextjs-dashboard-app/blob/main/PageLab%20(1).png" alt="Alt text" />
 </p>
 
 <p align="center">
-  Your text goes here.
+Create and manage Landing Pages seamlessly!
 </p>
 
 
