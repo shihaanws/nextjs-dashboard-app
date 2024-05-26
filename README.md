@@ -1,22 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+
+<p align="center">
+  <img src="https://github.com/shihaanws/nextjs-dashboard-app/blob/main/PageLab%20(1).png" alt="Alt text" />
+</p>
+
+<p align="center">
+Create and manage Landing Pages seamlessly!
+</p>
+
+
+## Prerequisites
+
+- Redis Database in [Upstash.](https://upstash.com)
+- Create one for free [here.](https://console.upstash.com/?new=true)
+- Get the credentials and create an env file as shown in .env.example
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Next, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
