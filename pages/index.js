@@ -50,19 +50,7 @@ const Home = () => {
     fetchViews();
   }, []);
 
-  // useEffect(() => {
-  //   if (popup.message && popup.active)
-  //     toast.success(popup.message, {
-  //       position: "top-right",
-  //       autoClose: 5000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "dark",
-  //     });
-  // }, [popup.message && popup.active]);
+  
 
   useEffect(() => {
     setIsClient(true);
@@ -79,9 +67,18 @@ const Home = () => {
         dispatch(setPageViews(JSON.parse(storedPageViews)));
       }
     };
+
+    const loadLoggedin = () => {
+      const storedLoginState = localStorage.getItem("isLoggedIn");
+      if (storedLoginState) {
+        dispatch(setLoggedIn(JSON.parse(storedLoginState)));
+      }
+    };
+
     if (typeof window !== "undefined") {
       loadPosts();
       loadPageViews();
+      loadLoggedin()
     }
   }, [dispatch]);
 
