@@ -12,13 +12,16 @@ const Login = () => {
   const router = useRouter();
 
   const handleLogin = () => {
+    console.log("up", username, password);
     if (username && password) {
+      console.log("iiiiiiiin");
       setLoading(true);
 
       setTimeout(() => {
         dispatch(setLoggedIn(true));
         setLoading(false);
         router.push("/");
+        console.log("first");
         localStorage.setItem("isLoggedIn", true);
       }, 1200);
     }
@@ -35,18 +38,19 @@ const Login = () => {
               your experience on our platform.
             </p>
           </div>
+
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form className="card-body">
+            <div className="card-body">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text">Username</span>
                 </label>
                 <input
-                  onChange={(value) => setUsername(value)}
-                  type="email"
-                  placeholder="Email"
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                  placeholder="Username"
                   className="input input-bordered"
-                  // required
+                  required
                 />
               </div>
               <div className="form-control">
@@ -54,11 +58,12 @@ const Login = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  onChange={(value) => setPassword(value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
+                  value={password}
                   placeholder="Password"
                   className="input input-bordered"
-                  // required
+                  required
                 />
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
@@ -75,7 +80,7 @@ const Login = () => {
                   )}
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
