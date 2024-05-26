@@ -7,30 +7,27 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deletePageView,
-  deletePost,
+  deleteLandingPage,
   setPageViews,
-} from "../store/reducers/blogSlice";
+} from "../store/reducers/landingPageSlice";
 
 import { Redis } from "@upstash/redis";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { setPosts } from "../store/reducers/blogSlice";
+import { setLandingPages } from "../store/reducers/landingPageSlice";
 
-
-const BlogList = () => {
+const LandingPageList = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.blog.posts);
-  const pageViews = useSelector((state) => state.blog.pageViews);
+  const landingPages = useSelector((state) => state.landingPage.landingPages);
+  const pageViews = useSelector((state) => state.landingPage.pageViews);
   const loggedIn = useSelector((state) => state.auth.isLoggedIn);
   const popup = useSelector((state) => state.popup.popup);
 
   const [views, setViews] = useState(0);
   const [isClient, setIsClient] = useState(false);
   const [currentId, setCurrentId] = useState();
-
-  console.log("posts", posts);
 
   useEffect(() => {
     const fetchViews = async () => {
@@ -67,8 +64,8 @@ const BlogList = () => {
     if (!loggedIn) {
       document.getElementById("login_modal").showModal();
     } else {
-      if (posts[index].live) {
-        router.push(`/blog/${index}`);
+      if (landingPages[index].live) {
+        router.push(`/landingPage/${index}`);
       } else {
         router.push(`/edit/?id=${index}`);
       }
@@ -76,10 +73,10 @@ const BlogList = () => {
   };
   useEffect(() => {
     setIsClient(true);
-    const loadPosts = () => {
-      const storedPosts = localStorage.getItem("blogPosts");
-      if (storedPosts) {
-        dispatch(setPosts(JSON.parse(storedPosts)));
+    const loadLandingPages = () => {
+      const storedLandingPages = localStorage.getItem("landingPages");
+      if (storedLandingPages) {
+        dispatch(setLandingPages(JSON.parse(storedLandingPages)));
       }
     };
 
@@ -90,7 +87,7 @@ const BlogList = () => {
       }
     };
     if (typeof window !== "undefined") {
-      loadPosts();
+      loadLandingPages();
       loadPageViews();
     }
   }, [dispatch]);
@@ -106,7 +103,7 @@ const BlogList = () => {
   const handleDeletePageView = (id) => {
     const redis = new Redis({
       url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
-        token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
+      token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
     });
 
     redis.del(["pageviews", "page", `page-${id}`].join(":"));
@@ -122,7 +119,7 @@ const BlogList = () => {
             <form className="flex gap-3" method="dialog">
               <button
                 onClick={() => {
-                  dispatch(deletePost(currentId));
+                  dispatch(deleteLandingPage(currentId));
                   dispatch(deletePageView(currentId));
                   handleDeletePageView(currentId);
                 }}
@@ -142,7 +139,7 @@ const BlogList = () => {
           </div>
         </div>
       </dialog>
-      {posts.length > 0 && (
+      {landingPages.length > 0 && (
         <div className="flex flex-col">
           <div className="w-1/4">
             <p className="text-xl md:text-2xl font-light mb-8 prose">
@@ -151,14 +148,14 @@ const BlogList = () => {
           </div>
           <div className="w-3/4">
             <div className="grid grid-cols-3 gap-6 w-[70em] mb-12 mt-9">
-              {posts.map((post, index) => (
+              {landingPages.map((landingPage, index) => (
                 <div
                   key={index}
                   className="card card-compact bg-base-100 h-[20em] shadow-xl transform transition-transform hover:-translate-y-1"
                 >
                   <figure className="h-[80%]">
                     <img
-                      src={post.imageBaseUrl}
+                      src={landingPage.imageBaseUrl}
                       alt="Placeholder Image"
                       className="w-full blur-sm h-[80%]"
                       style={{ filter: "blur(5px)" }}
@@ -167,16 +164,16 @@ const BlogList = () => {
                   <div className="card-body flex flex-col justify-between">
                     <div className="flex justify-between">
                       <div>
-                        <h2 className="card-title">{post.brandName}</h2>
+                        <h2 className="card-title">{landingPage.brandName}</h2>
                       </div>
-                      {post.live && (
+                      {landingPage.live && (
                         <div className="badge badge-accent badge-outline flex items-center justify-center ">
                           Live
                         </div>
                       )}
                     </div>
                     <div className="flex items-center justify-between mt-4">
-                      {post.live ? (
+                      {landingPage.live ? (
                         <div className="flex items-center gap-2 prose">
                           <EyeIcon />
                           <span>{pageViews?.[index]?.views ?? 0}</span>
@@ -194,12 +191,14 @@ const BlogList = () => {
                         <button
                           onClick={() => handleViewPage(index)}
                           className={
-                            post.live ? "btn btn-success" : "btn btn-primary"
+                            landingPage.live
+                              ? "btn btn-success"
+                              : "btn btn-primary"
                           }
                         >
-                          {post.live ? "Visit" : "Edit"}
+                          {landingPage.live ? "Visit" : "Edit"}
 
-                          {post.live ? <OpenWindow /> : <EditIcon />}
+                          {landingPage.live ? <OpenWindow /> : <EditIcon />}
                         </button>
                       </div>
                     </div>
@@ -214,4 +213,4 @@ const BlogList = () => {
   );
 };
 
-export default BlogList;
+export default LandingPageList;

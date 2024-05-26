@@ -10,14 +10,14 @@ import SimpleCopyright from "../../components/footers/SimpleCopyright";
 import TraditionalBranding from "../../components/footers/TraditionalBranding";
 import EditIcon from "../../components/icons/EditIcon";
 import { ReportView } from "../../components/reportView";
-import { setPageViews } from "../../store/reducers/blogSlice";
-const Blog = () => {
+import { setPageViews } from "../../store/reducers/landingPageSlice";
+const LandingPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const { id } = router.query;
-  const post = useSelector((state) => state.blog.posts[id]);
-  const pageViews = useSelector((state) => state.blog.pageViews);
+  const landingPage = useSelector((state) => state.landingPage.landingPages[id]);
+  const pageViews = useSelector((state) => state.landingPage.pageViews);
   const [views, setViews] = useState(0);
 
   useEffect(() => {
@@ -48,18 +48,18 @@ const Blog = () => {
     };
 
     fetchViews();
-    console.log("post", post);
+    console.log("landingPage", landingPage);
   }, []);
-  if (!post) return <div>Loading...</div>;
+  if (!landingPage) return <div>Loading...</div>;
 
   return (
     <ProtectedRoute>
       <div>
         <ReportView slug={`page-${id}`} />
         <Header
-          searchBar={post.searchBar}
-          profileIcon={post.profileIcon}
-          brandName={post.brandName}
+          searchBar={landingPage.searchBar}
+          profileIcon={landingPage.profileIcon}
+          brandName={landingPage.brandName}
         />
         <div className="hero min-h-screen bg-base-200 relative hero-content max-w-[100rem]  pl-[12%] flex-col justify-start lg:flex-row">
           <div className="absolute top-4 right-4 flex gap-3">
@@ -83,12 +83,12 @@ const Blog = () => {
           </div>
 
           <img
-            src={post.imageBaseUrl}
+            src={landingPage.imageBaseUrl}
             className="max-w-sm rounded-lg shadow-2xl"
           />
           <div>
-            <h1 className="text-5xl font-bold">{post.title}!</h1>
-            <p className="py-6">{post.description}</p>
+            <h1 className="text-5xl font-bold">{landingPage.title}!</h1>
+            <p className="py-6">{landingPage.description}</p>
             <div className="flex gap-2">
               <button className="btn btn-primary">Documentation</button>
               <button className="btn btn-neutral">Try for free!</button>
@@ -96,16 +96,16 @@ const Blog = () => {
           </div>
         </div>
 
-        {post.footerType == 1 ? (
-          <SimpleCopyright brandName={post.brandName} />
-        ) : post.footerType == 2 ? (
-          <TraditionalBranding brandName={post.brandName} />
+        {landingPage.footerType == 1 ? (
+          <SimpleCopyright brandName={landingPage.brandName} />
+        ) : landingPage.footerType == 2 ? (
+          <TraditionalBranding brandName={landingPage.brandName} />
         ) : (
-          <ModernSocialIcons brandName={post.brandName} />
+          <ModernSocialIcons brandName={landingPage.brandName} />
         )}
       </div>
     </ProtectedRoute>
   );
 };
 
-export default Blog;
+export default LandingPage;

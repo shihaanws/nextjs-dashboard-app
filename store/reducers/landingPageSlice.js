@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  posts: [
+  landingPages: [
     {
       brandName: "FibrAI",
       title: "Box Office News!",
@@ -19,7 +19,7 @@ const initialState = {
 };
 
 // const initialState = {
-//   posts: [
+//   landingPages: [
 //     {
 //       brandName: "FibrAI",
 //       title: "Box Office News!",
@@ -45,12 +45,12 @@ const initialState = {
 //   ],
 // };
 
-const blogSlice = createSlice({
-  name: "blog",
+const landingPageSlice = createSlice({
+  name: "landingPage",
   initialState,
   reducers: {
-    setPosts(state, action) {
-      state.posts = action.payload;
+    setLandingPages(state, action) {
+      state.landingPages = action.payload;
     },
     setPageViews(state, action) {
       state.pageViews = action.payload;
@@ -58,13 +58,13 @@ const blogSlice = createSlice({
         localStorage.setItem("pageViews", JSON.stringify(state.pageViews));
       }
     },
-    addPost(state, action) {
-      state.posts.push(action.payload);
+    addLandingPage(state, action) {
+      state.landingPages.push(action.payload);
       if (typeof window !== "undefined") {
-        localStorage.setItem("blogPosts", JSON.stringify(state.posts));
+        localStorage.setItem("landingPages", JSON.stringify(state.landingPages));
       }
     },
-    updatePost(state, action) {
+    updateLandingPage(state, action) {
       const {
         id,
         brandName,
@@ -76,7 +76,7 @@ const blogSlice = createSlice({
         profileIcon,
         imageBaseUrl,
       } = action.payload;
-      state.posts[id] = {
+      state.landingPages[id] = {
         brandName,
         title,
         description,
@@ -87,23 +87,21 @@ const blogSlice = createSlice({
         imageBaseUrl,
       };
       if (typeof window !== "undefined") {
-        localStorage.setItem("blogPosts", JSON.stringify(state.posts));
+        localStorage.setItem("landingPages", JSON.stringify(state.landingPages));
       }
     },
-    deletePost(state, action) {
-      const postId = action.payload;
-      state.posts = state.posts.filter((post, index) => index !== postId);
-      console.log("redposts", state.posts);
+    deleteLandingPage(state, action) {
+      const landingPageId = action.payload;
+      state.landingPages = state.landingPages.filter((landingPage, index) => index !== landingPageId);
       if (typeof window !== "undefined") {
-        localStorage.setItem("blogPosts", JSON.stringify(state.posts));
+        localStorage.setItem("landingPages", JSON.stringify(state.landingPages));
       }
     },
     deletePageView(state, action) {
       const pageViewId = action.payload;
       state.pageViews = state.pageViews.filter(
-        (post, index) => index !== pageViewId
+        (page, index) => index !== pageViewId
       );
-      console.log("redposts", state.pageViews);
       if (typeof window !== "undefined") {
         localStorage.setItem("pageViews", JSON.stringify(state.pageViews));
       }
@@ -112,11 +110,11 @@ const blogSlice = createSlice({
 });
 
 export const {
-  setPosts,
-  addPost,
-  updatePost,
-  deletePost,
+  setLandingPages,
+  addLandingPage,
+  updateLandingPage,
+  deleteLandingPage,
   setPageViews,
   deletePageView,
-} = blogSlice.actions;
-export default blogSlice.reducer;
+} = landingPageSlice.actions;
+export default landingPageSlice.reducer;

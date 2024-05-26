@@ -1,12 +1,12 @@
 // store/index.js
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducers/authSlice";
-import blogReducer from "./reducers/blogSlice";
+import landingPageReducer from "./reducers/landingPageSlice";
 import popupSlice from "./reducers/popupSlice";
 
 const store = configureStore({
   reducer: {
-    blog: blogReducer,
+    landingPage: landingPageReducer,
     auth: authReducer,
     popup: popupSlice,
   },

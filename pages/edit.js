@@ -10,13 +10,13 @@ import EditIcon from "../components/icons/EditIcon";
 import EyeIcon from "../components/icons/EyeIcon";
 import OpenWindow from "../components/icons/OpenWindow";
 import PublishIcon from "../components/icons/PublishIcon";
-import { updatePost } from "../store/reducers/blogSlice";
+import { updateLandingPage } from "../store/reducers/landingPageSlice";
 
 const Edit = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { id } = router.query;
-  const post = useSelector((state) => state.blog.posts[id]);
+  const landingPage = useSelector((state) => state.landingPage.landingPages[id]);
   const [title, setTitle] = useState("");
   const [brandName, setBrandName] = useState("");
   const [description, setDescription] = useState("");
@@ -31,24 +31,24 @@ const Edit = () => {
   const [imageBaseUrl, setImageBaseUrl] = useState("");
 
   useEffect(() => {
-    if (post) {
-      setTitle(post.title);
-      setBrandName(post.brandName);
-      setDescription(post.description);
-      setFooterType(post.footerType);
-      setLive(post.live);
-      setSearchBar(post.searchBar);
-      setProfileIcon(post.profileIcon);
-      setImageBaseUrl(post.imageBaseUrl);
+    if (landingPage) {
+      setTitle(landingPage.title);
+      setBrandName(landingPage.brandName);
+      setDescription(landingPage.description);
+      setFooterType(landingPage.footerType);
+      setLive(landingPage.live);
+      setSearchBar(landingPage.searchBar);
+      setProfileIcon(landingPage.profileIcon);
+      setImageBaseUrl(landingPage.imageBaseUrl);
     }
-  }, [post]);
+  }, [landingPage]);
 
   const handleSubmit = (e) => {
     // e.preventDefault();
 
     setPublishLoader(true);
     dispatch(
-      updatePost({
+      updateLandingPage({
         id,
         brandName,
         title,
@@ -66,7 +66,7 @@ const Edit = () => {
     }, 3000);
 
     // router.push(`/`);
-    // router.push(`/blog/${id}`);
+    // router.push(`/landingPage/${id}`);
   };
 
   const handleImageChange = (event) => {
@@ -81,7 +81,7 @@ const Edit = () => {
       reader.readAsDataURL(file);
     }
   };
-  if (!post) return <div>Loading...</div>;
+  if (!landingPage) return <div>Loading...</div>;
 
   return (
     <div
@@ -124,11 +124,11 @@ const Edit = () => {
               </div>
             </div>
             {footerType == 1 ? (
-              <SimpleCopyright brandName={post.brandName} />
+              <SimpleCopyright brandName={landingPage.brandName} />
             ) : footerType == 2 ? (
-              <TraditionalBranding brandName={post.brandName} />
+              <TraditionalBranding brandName={landingPage.brandName} />
             ) : (
-              <ModernSocialIcons brandName={post.brandName} />
+              <ModernSocialIcons brandName={landingPage.brandName} />
             )}
           </div>
         </div>
@@ -154,11 +154,11 @@ const Edit = () => {
               </div>
             </div>
             {footerType == 1 ? (
-              <SimpleCopyright brandName={post.brandName} />
+              <SimpleCopyright brandName={landingPage.brandName} />
             ) : footerType == 2 ? (
-              <TraditionalBranding brandName={post.brandName} />
+              <TraditionalBranding brandName={landingPage.brandName} />
             ) : (
-              <ModernSocialIcons brandName={post.brandName} />
+              <ModernSocialIcons brandName={landingPage.brandName} />
             )}
           </div>
         </div>
@@ -275,7 +275,7 @@ const Edit = () => {
           </p>
           <button
             onClick={() => {
-              router.push(`/blog/${id}`);
+              router.push(`/landingPage/${id}`);
             }}
             className="btn btn-success flex items-center justify-center"
           >
@@ -301,7 +301,6 @@ const Edit = () => {
           <button
             onClick={() => {
               if (!previewMode) {
-                console.log("posttt", post);
                 setLoader(true);
                 setTimeout(() => {
                   setLoader(false);

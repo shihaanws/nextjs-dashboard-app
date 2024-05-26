@@ -2,7 +2,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addPost } from "../store/reducers/blogSlice";
+import { addLandingPage } from "../store/reducers/landingPageSlice";
 import { setPopup } from "../store/reducers/popupSlice";
 
 import LeftArrow from "../components/icons/LeftArrow";
@@ -22,7 +22,7 @@ const New = () => {
     e.preventDefault();
 
     dispatch(
-      addPost({
+      addLandingPage({
         title,
         brandName,
         description,
