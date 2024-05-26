@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import Link from "next/link";
-import ProtectedRoute from "../../components/ProtectedRoute";
-import Footer from "../../components/footer/ModernSocialIcons";
-import Header from "../../components/Header";
-import TraditionalBranding from "../../components/footer/TraditionalBranding";
-import ModernSocialIcons from "../../components/footer/ModernSocialIcons";
-import SimpleCopyright from "../../components/footer/SimpleCopyright";
-import EditIcon from "../../components/icons/EditIcon";
 import { Redis } from "@upstash/redis";
+import Header from "../../components/Header";
+import ProtectedRoute from "../../components/ProtectedRoute";
+import ModernSocialIcons from "../../components/footers/ModernSocialIcons";
+import SimpleCopyright from "../../components/footers/SimpleCopyright";
+import TraditionalBranding from "../../components/footers/TraditionalBranding";
+import EditIcon from "../../components/icons/EditIcon";
 import { ReportView } from "../../components/reportView";
 import { setPageViews } from "../../store/reducers/blogSlice";
 const Blog = () => {

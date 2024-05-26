@@ -1,27 +1,20 @@
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import {
-  deletePageView,
-  deletePost,
-  setPageViews,
-} from "../store/reducers/blogSlice";
-import logoImage from "../components/icons/PageLab1.png"; // Import your logo image file
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import logoImage from "../components/icons/PageLab.png";
+import { setPageViews } from "../store/reducers/blogSlice";
 
-import Image from "next/image";
-import { setLoggedIn } from "../store/reducers/authSlice";
-import { setPosts } from "../store/reducers/blogSlice";
-import OpenWindow from "../components/icons/OpenWindow";
-import Stats from "../components/Stats";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { ReportView } from "../components/reportView";
 import { Redis } from "@upstash/redis";
-import EyeIcon from "../components/icons/EyeIcon";
-import EditIcon from "../components/icons/EditIcon";
+import Image from "next/image";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import BlogList from "../components/BlogList";
 import HeroContent from "../components/HeroContent";
+import Stats from "../components/Stats";
+import { ReportView } from "../components/reportView";
+import { setLoggedIn } from "../store/reducers/authSlice";
+import { setPosts } from "../store/reducers/blogSlice";
+
 const Home = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -38,9 +31,8 @@ const Home = () => {
   useEffect(() => {
     const fetchViews = async () => {
       const redis = new Redis({
-        url: "https://complete-javelin-51240.upstash.io",
-        token:
-          "AcgoAAIncDFjNjliOGVlYTk3MzU0N2ViOWE3YjkzMzAzMTM3MGI3ZXAxNTEyNDA",
+        url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
+        token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
       });
       const viewsCount =
         (await redis.get(["pageviews", "page", "page-dashboard"].join(":"))) ||
@@ -49,8 +41,6 @@ const Home = () => {
     };
     fetchViews();
   }, []);
-
-  
 
   useEffect(() => {
     setIsClient(true);
@@ -78,7 +68,7 @@ const Home = () => {
     if (typeof window !== "undefined") {
       loadPosts();
       loadPageViews();
-      loadLoggedin()
+      loadLoggedin();
     }
   }, [dispatch]);
 
@@ -90,12 +80,10 @@ const Home = () => {
     }
   };
 
-  
-
   const handleDeletePageView = (id) => {
     const redis = new Redis({
-      url: "https://complete-javelin-51240.upstash.io",
-      token: "AcgoAAIncDFjNjliOGVlYTk3MzU0N2ViOWE3YjkzMzAzMTM3MGI3ZXAxNTEyNDA",
+      url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
+      token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
     });
 
     redis.del(["pageviews", "page", `page-${id}`].join(":"));
@@ -113,8 +101,15 @@ const Home = () => {
             You have to login first to view the Landing Page!
           </p>
           <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
+            <form className="flex gap-3" method="dialog">
+              <button
+                onClick={() => {
+                  document.getElementById("login_modal").showModal();
+                }}
+                className="btn btn-active btn-neutral"
+              >
+                Cancel
+              </button>
               <button onClick={handleLoginLogout} className="btn btn-primary">
                 Login Now
               </button>
@@ -128,7 +123,15 @@ const Home = () => {
           <h3 className="font-bold text-lg">Oops!</h3>
           <p className="py-4">Are you sure you want to logout?</p>
           <div className="modal-action">
-            <form method="dialog">
+            <form className="flex gap-3" method="dialog">
+              <button
+                onClick={() => {
+                  document.getElementById("delete_modal").showModal();
+                }}
+                className="btn btn-active btn-neutral"
+              >
+                Cancel
+              </button>
               <button
                 onClick={() => dispatch(setLoggedIn(false))}
                 className="btn btn-primary"

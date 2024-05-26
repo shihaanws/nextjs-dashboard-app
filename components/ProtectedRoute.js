@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }) => {
 
   React.useEffect(() => {
     if (!isLoggedIn) {
-      //   router.push('/login'); // Redirect to login page if not logged in
+      //   router.push('/login'); 
     }
   }, [isLoggedIn]);
 

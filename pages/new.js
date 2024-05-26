@@ -1,11 +1,11 @@
 "use client";
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addPost } from "../store/reducers/blogSlice";
 import { setPopup } from "../store/reducers/popupSlice";
 
-import LeftArrow from "../components/LeftArrow";
+import LeftArrow from "../components/icons/LeftArrow";
 
 const New = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const New = () => {
         footerType,
         searchBar,
         profileIcon,
-        imageBaseUrl
+        imageBaseUrl,
       })
     );
     setBrandName("");
@@ -38,23 +38,20 @@ const New = () => {
     setFooterType(0);
     setSearchBar(false);
     setProfileIcon(false);
-    setImageBaseUrl("")
+    setImageBaseUrl("");
     dispatch(
       setPopup({ message: "Landing Page created successfully", active: true })
     );
     router.push("/");
   };
 
- 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result;
-        setSelectedImage(base64String);
         setImageBaseUrl(base64String);
-        // localStorage.setItem("uploadedImage", base64String);
       };
 
       reader.readAsDataURL(file);
@@ -73,7 +70,7 @@ const New = () => {
           <LeftArrow className="w-5 h-5 " />
           <p className="!m-0 !p-0">Create Landing Page</p>
         </div>
-        
+
         <form
           className="flex flex-col gap-1 items-center justify-center p-2 h-[40em] bg-base-300 w-[80em] shadow-md rounded-lg mt-0"
           onSubmit={handleSubmit}

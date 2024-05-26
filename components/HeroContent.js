@@ -1,8 +1,18 @@
 import React from "react";
 import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
 
 function HeroContent() {
-    const router = useRouter();
+  const router = useRouter();
+  const loggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  const handleCreate = (index) => {
+    if (!loggedIn) {
+      document.getElementById("login_modal").showModal();
+    } else {
+      router.push("/new");
+    }
+  };
 
   return (
     <div className=" flex flex-col z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -24,7 +34,7 @@ function HeroContent() {
             our easy-to-use platform.{" "}
           </p>
           <button
-            onClick={() => router.push("/new")}
+            onClick={() => handleCreate()}
             className="btn btn-accent  text-lg "
           >
             Create Landing Page

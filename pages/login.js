@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setLoggedIn } from "../store/reducers/authSlice";
 import { useRouter } from "next/router";
+import LeftArrow from "../components/icons/LeftArrow";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -28,7 +29,18 @@ const Login = () => {
   };
   return (
     <div>
-      <div className="hero min-h-screen bg-base-200">
+      <div className="hero min-h-screen bg-base-200 flex flex-col items-center justify-center">
+        <div className="flex justify-start w-[81%] mb-16">
+          <div
+            onClick={() => {
+              router.push("/");
+            }}
+            className="cursor-pointer flex gap-3 prose lg:prose-xl items-center mt-5 transition-transform duration-300 ease-in-out transform hover:-translate-x-1"
+          >
+            <LeftArrow className="w-5 h-5 " />
+            <p className="!m-0 !p-0">Home</p>
+          </div>
+        </div>
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Login now!</h1>

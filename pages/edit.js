@@ -1,17 +1,16 @@
-// pages/edit.js
-import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
-import { updatePost } from "../store/reducers/blogSlice";
-import Header from "../components/Header";
-import SimpleCopyright from "../components/footer/SimpleCopyright";
-import TraditionalBranding from "../components/footer/TraditionalBranding";
-import ModernSocialIcons from "../components/footer/ModernSocialIcons";
+import React, { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import EyeIcon from "../components/icons/EyeIcon";
+import { useDispatch, useSelector } from "react-redux";
+import Header from "../components/Header";
+import ModernSocialIcons from "../components/footers/ModernSocialIcons";
+import SimpleCopyright from "../components/footers/SimpleCopyright";
+import TraditionalBranding from "../components/footers/TraditionalBranding";
 import EditIcon from "../components/icons/EditIcon";
+import EyeIcon from "../components/icons/EyeIcon";
 import OpenWindow from "../components/icons/OpenWindow";
 import PublishIcon from "../components/icons/PublishIcon";
+import { updatePost } from "../store/reducers/blogSlice";
 
 const Edit = () => {
   const router = useRouter();
@@ -33,7 +32,6 @@ const Edit = () => {
 
   useEffect(() => {
     if (post) {
-      console.log("post", post);
       setTitle(post.title);
       setBrandName(post.brandName);
       setDescription(post.description);
@@ -116,7 +114,7 @@ const Edit = () => {
               <div className="hero-content flex-col justify-start lg:flex-row  min-w-[80%]">
                 <img
                   src={imageBaseUrl}
-                  className="max-w-sm rounded-lg shadow-2xl"
+                  className="w-[10em] rounded-lg shadow-2xl"
                 />
                 <div>
                   <h1 className="text-5xl font-bold">{title}!</h1>

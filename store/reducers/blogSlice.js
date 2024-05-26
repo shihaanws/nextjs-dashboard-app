@@ -11,7 +11,8 @@ const initialState = {
       live: true,
       searchBar: true,
       profileIcon: true,
-      imageBaseUrl :""
+      imageBaseUrl:
+        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
     },
   ],
   pageViews: [{ pageId: 0, views: 4 }],
@@ -73,7 +74,7 @@ const blogSlice = createSlice({
         live,
         searchBar,
         profileIcon,
-        imageBaseUrl
+        imageBaseUrl,
       } = action.payload;
       state.posts[id] = {
         brandName,
@@ -83,7 +84,7 @@ const blogSlice = createSlice({
         live,
         searchBar,
         profileIcon,
-        imageBaseUrl
+        imageBaseUrl,
       };
       if (typeof window !== "undefined") {
         localStorage.setItem("blogPosts", JSON.stringify(state.posts));

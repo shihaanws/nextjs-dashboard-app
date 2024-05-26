@@ -1,29 +1,21 @@
-// components/BlogList.js
 import React, { useEffect, useState } from "react";
+import EditIcon from "./icons/EditIcon";
 import EyeIcon from "./icons/EyeIcon";
 import OpenWindow from "./icons/OpenWindow";
-import EditIcon from "./icons/EditIcon";
 
-import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deletePageView,
   deletePost,
   setPageViews,
 } from "../store/reducers/blogSlice";
-import logoImage from "../components/icons/PageLab1.png"; // Import your logo image file
 
-import Image from "next/image";
-import { setLoggedIn } from "../store/reducers/authSlice";
-import { setPosts } from "../store/reducers/blogSlice";
-import Stats from "../components/Stats";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { ReportView } from "../components/reportView";
 import { Redis } from "@upstash/redis";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { setPosts } from "../store/reducers/blogSlice";
 
-import HeroContent from "../components/HeroContent";
 
 const BlogList = () => {
   const router = useRouter();
@@ -43,9 +35,8 @@ const BlogList = () => {
   useEffect(() => {
     const fetchViews = async () => {
       const redis = new Redis({
-        url: "https://complete-javelin-51240.upstash.io",
-        token:
-          "AcgoAAIncDFjNjliOGVlYTk3MzU0N2ViOWE3YjkzMzAzMTM3MGI3ZXAxNTEyNDA",
+        url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
+        token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
       });
       const viewsCount =
         (await redis.get(["pageviews", "page", "page-dashboard"].join(":"))) ||
@@ -114,8 +105,8 @@ const BlogList = () => {
 
   const handleDeletePageView = (id) => {
     const redis = new Redis({
-      url: "https://complete-javelin-51240.upstash.io",
-      token: "AcgoAAIncDFjNjliOGVlYTk3MzU0N2ViOWE3YjkzMzAzMTM3MGI3ZXAxNTEyNDA",
+      url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
+        token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
     });
 
     redis.del(["pageviews", "page", `page-${id}`].join(":"));
