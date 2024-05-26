@@ -173,7 +173,11 @@ const New = () => {
             </label>
           </div>
 
-          <button type="submit" className="btn btn-primary w-full mt-4">
+          <button
+            type="submit"
+            disabled={brandName && title && description &&imageBaseUrl && footerType? false : true}
+            className="btn btn-primary w-full mt-4"
+          >
             Create
           </button>
         </form>
