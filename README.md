@@ -11,7 +11,7 @@ Create and manage Landing Pages seamlessly!
 
 ## Prerequisites
 
-- Redis Database in [Upstash.](https://upstash.com)
+- Redis Database in [Upstash.](https://upstash.com) for Dashboard/Landingpage analytics (Page view counts)
 - Create one for free [here.](https://console.upstash.com/?new=true)
 - Get the credentials and create an env file as shown in .env.example
 
