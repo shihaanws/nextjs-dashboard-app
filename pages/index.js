@@ -14,6 +14,7 @@ import Stats from "../components/Stats";
 import { ReportView } from "../components/reportView";
 import { setLoggedIn } from "../store/reducers/authSlice";
 import { setLandingPages } from "../store/reducers/landingPageSlice";
+import { setPopup } from "../store/reducers/popupSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,10 @@ const Home = () => {
       setViews(viewsCount);
     };
     fetchViews();
+
+    dispatch(
+      setPopup({ message: "Landing Page created successfully", active: false })
+    );
   }, []);
 
   useEffect(() => {

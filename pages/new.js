@@ -19,7 +19,7 @@ const New = () => {
   const [imageBaseUrl, setImageBaseUrl] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     dispatch(
       addLandingPage({
@@ -73,7 +73,7 @@ const New = () => {
 
         <form
           className="flex flex-col gap-1 items-center justify-center p-2 h-[40em] bg-base-300 w-[80em] shadow-md rounded-lg mt-0"
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-1 w-[40em]">
             <label className="form-control w-full">
@@ -174,8 +174,13 @@ const New = () => {
           </div>
 
           <button
+            onClick={handleSubmit}
             type="submit"
-            disabled={brandName && title && description &&imageBaseUrl && footerType? false : true}
+            disabled={
+              brandName && title && description && imageBaseUrl && footerType
+                ? false
+                : true
+            }
             className="btn btn-primary w-full mt-4"
           >
             Create
