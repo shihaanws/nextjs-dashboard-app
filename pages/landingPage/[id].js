@@ -16,32 +16,34 @@ const LandingPage = () => {
   const dispatch = useDispatch();
 
   const { id } = router.query;
-  const landingPage = useSelector((state) => state.landingPage.landingPages[id]);
+  const landingPage = useSelector(
+    (state) => state.landingPage.landingPages[id]
+  );
   const pageViews = useSelector((state) => state.landingPage.pageViews);
   const [views, setViews] = useState(0);
 
   useEffect(() => {
     const fetchViews = async () => {
       const redis = new Redis({
-        url: "https://complete-javelin-51240.upstash.io",
-        token:
-          "AcgoAAIncDFjNjliOGVlYTk3MzU0N2ViOWE3YjkzMzAzMTM3MGI3ZXAxNTEyNDA",
+        url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
+        token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
       });
       const viewsCount =
         (await redis.get(["pageviews", "page", `page-${id}`].join(":"))) || 0;
+
       console.log("id,viewsCount", id, viewsCount);
       setViews(viewsCount);
 
       console.log("pageViews", pageViews);
       const updatedPageViews = pageViews.map((item) => {
         if (item.pageId === id) {
-          return { ...item, views: viewsCount }; // Update views if pageId exists
+          return { ...item, views: parseInt(viewsCount) };
         }
         return item;
       });
 
       if (!updatedPageViews.some((item) => item.pageId === id)) {
-        updatedPageViews.push({ pageId: id, views: viewsCount }); // Add new object if pageId doesn't exist
+        updatedPageViews.push({ pageId: id, views: parseInt(viewsCount) });
       }
 
       dispatch(setPageViews(updatedPageViews));
@@ -50,6 +52,7 @@ const LandingPage = () => {
     fetchViews();
     console.log("landingPage", landingPage);
   }, []);
+
   if (!landingPage) return <div>Loading...</div>;
 
   return (
