@@ -1,4 +1,11 @@
+<div style="text-align:center;">
+
 ![PageLab](https://github.com/shihaanws/nextjs-dashboard-app/blob/main/PageLab%20(1).png)
+Create and manage Landing Pages seamlessly!
+
+</div>
+
+
 ## Prerequisites
 
 - Redis Database in [Upstash](https://upstash.com).
