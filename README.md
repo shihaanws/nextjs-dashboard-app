@@ -1,9 +1,8 @@
-![PageLab](https://openai.com/favicon.ico)
-
+![PageLab](https://github.com/shihaanws/nextjs-dashboard-app/blob/main/PageLab%20(1).png)
 ## Prerequisites
 
-- Redis Database in [Upstash]([https://nextjs.org/docs](https://upstash.com/)).
-- Create one for free [here]([https://nextjs.org/learn](https://console.upstash.com/?new=true))
+- Redis Database in [Upstash](https://upstash.com).
+- Create one for free [here](https://console.upstash.com/?new=true)
 - Get the credentials and create an env file as shown in .env.example
 
 ## Getting Started
