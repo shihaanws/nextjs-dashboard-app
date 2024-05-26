@@ -45,16 +45,7 @@ const New = () => {
     router.push("/");
   };
 
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  useEffect(() => {
-    // Check if there's an image stored in local storage
-    const storedImage = localStorage.getItem("uploadedImage");
-    if (storedImage) {
-      setSelectedImage(storedImage);
-    }
-  }, []);
-
+ 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -82,11 +73,7 @@ const New = () => {
           <LeftArrow className="w-5 h-5 " />
           <p className="!m-0 !p-0">Create Landing Page</p>
         </div>
-        {/* <img
-              src={selectedImage}
-              alt="Selected"
-              className="max-w-xs rounded-lg shadow-md"
-            /> */}
+        
         <form
           className="flex flex-col gap-1 items-center justify-center p-2 h-[40em] bg-base-300 w-[80em] shadow-md rounded-lg mt-0"
           onSubmit={handleSubmit}

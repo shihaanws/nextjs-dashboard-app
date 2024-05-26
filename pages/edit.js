@@ -29,6 +29,7 @@ const Edit = () => {
   const [published, setPublished] = useState(false);
   const [searchBar, setSearchBar] = useState(false);
   const [profileIcon, setProfileIcon] = useState(false);
+  const [imageBaseUrl, setImageBaseUrl] = useState("");
 
   useEffect(() => {
     if (post) {
@@ -57,6 +58,7 @@ const Edit = () => {
         live: true,
         searchBar,
         profileIcon,
+        imageBaseUrl,
       })
     );
     setTimeout(() => {
@@ -68,6 +70,18 @@ const Edit = () => {
     // router.push(`/blog/${id}`);
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result;
+        setImageBaseUrl(base64String);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
   if (!post) return <div>Loading...</div>;
 
   return (
@@ -192,6 +206,17 @@ const Edit = () => {
               ></textarea>
             </label>
 
+            <label className="form-control w-full">
+              <div className="label">
+                <span className="label-text">Hero Image</span>
+              </div>
+              <input
+                accept="image/*"
+                onChange={handleImageChange}
+                type="file"
+                className="file-input file-input-bordered w-full max-w-xs"
+              />
+            </label>
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text">Header Style</span>

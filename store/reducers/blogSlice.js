@@ -11,6 +11,7 @@ const initialState = {
       live: true,
       searchBar: true,
       profileIcon: true,
+      imageBaseUrl :""
     },
   ],
   pageViews: [{ pageId: 0, views: 4 }],
@@ -72,6 +73,7 @@ const blogSlice = createSlice({
         live,
         searchBar,
         profileIcon,
+        imageBaseUrl
       } = action.payload;
       state.posts[id] = {
         brandName,
@@ -81,6 +83,7 @@ const blogSlice = createSlice({
         live,
         searchBar,
         profileIcon,
+        imageBaseUrl
       };
       if (typeof window !== "undefined") {
         localStorage.setItem("blogPosts", JSON.stringify(state.posts));

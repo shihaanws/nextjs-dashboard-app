@@ -15,11 +15,10 @@ const Login = () => {
     if (username && password) {
       setLoading(true);
 
-      // Simulate an authentication process
       setTimeout(() => {
         dispatch(setLoggedIn(true));
         setLoading(false);
-        router.push("/"); // Redirect to home page after login
+        router.push("/"); 
       }, 1200);
     }
   };
