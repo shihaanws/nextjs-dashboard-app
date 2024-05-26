@@ -11,8 +11,8 @@ Create and manage Landing Pages seamlessly!
 
 ## Prerequisites
 
-- Redis Database in [Upstash](https://upstash.com).
-- Create one for free [here](https://console.upstash.com/?new=true)
+- Redis Database in [Upstash.](https://upstash.com)
+- Create one for free [here.](https://console.upstash.com/?new=true)
 - Get the credentials and create an env file as shown in .env.example
 
 ## Getting Started
@@ -23,7 +23,7 @@ First, install dependencies:
 npm install
 ```
 
-First, run the development server:
+Next, run the development server:
 
 ```bash
 npm run dev
