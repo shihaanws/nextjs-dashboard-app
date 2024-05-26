@@ -32,8 +32,9 @@ const LandingPageList = () => {
   useEffect(() => {
     const fetchViews = async () => {
       const redis = new Redis({
-        url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
-        token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
+        url: "https://complete-javelin-51240.upstash.io",
+        token:
+          "AcgoAAIncDFjNjliOGVlYTk3MzU0N2ViOWE3YjkzMzAzMTM3MGI3ZXAxNTEyNDA",
       });
       const viewsCount =
         (await redis.get(["pageviews", "page", "page-dashboard"].join(":"))) ||
@@ -102,8 +103,9 @@ const LandingPageList = () => {
 
   const handleDeletePageView = (id) => {
     const redis = new Redis({
-      url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
-      token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
+      url: "https://complete-javelin-51240.upstash.io",
+        token:
+          "AcgoAAIncDFjNjliOGVlYTk3MzU0N2ViOWE3YjkzMzAzMTM3MGI3ZXAxNTEyNDA",
     });
 
     redis.del(["pageviews", "page", `page-${id}`].join(":"));

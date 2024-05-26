@@ -25,8 +25,9 @@ const LandingPage = () => {
   useEffect(() => {
     const fetchViews = async () => {
       const redis = new Redis({
-        url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
-        token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
+        url: "https://complete-javelin-51240.upstash.io",
+        token:
+          "AcgoAAIncDFjNjliOGVlYTk3MzU0N2ViOWE3YjkzMzAzMTM3MGI3ZXAxNTEyNDA",
       });
       const viewsCount =
         (await redis.get(["pageviews", "page", `page-${id}`].join(":"))) || 0;
