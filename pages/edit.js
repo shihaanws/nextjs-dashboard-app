@@ -41,6 +41,7 @@ const Edit = () => {
       setLive(post.live);
       setSearchBar(post.searchBar);
       setProfileIcon(post.profileIcon);
+      setImageBaseUrl(post.imageBaseUrl);
     }
   }, [post]);
 
@@ -88,7 +89,7 @@ const Edit = () => {
     <div
       className={
         published
-          ? "flex items-center min-h-screen justify-center gap-6"
+          ? "flex items-center min-h-screen justify-center gap-5"
           : "flex flex-col items-center min-h-screen  "
       }
     >
@@ -114,7 +115,7 @@ const Edit = () => {
             <div className="hero p-12 w-full bg-base-200 relative">
               <div className="hero-content flex-col justify-start lg:flex-row  min-w-[80%]">
                 <img
-                  src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
+                  src={imageBaseUrl}
                   className="max-w-sm rounded-lg shadow-2xl"
                 />
                 <div>
@@ -144,7 +145,7 @@ const Edit = () => {
             <div className="hero p-12 w-full bg-base-200 relative">
               <div className="hero-content flex-col justify-start lg:flex-row  min-w-[80%]">
                 <img
-                  src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
+                  src={imageBaseUrl}
                   className="max-w-sm rounded-lg shadow-2xl"
                 />
                 <div>
@@ -164,11 +165,11 @@ const Edit = () => {
           </div>
         </div>
       ) : (
-        <form className="flex flex-col gap-4 items-center justify-center p-5  h-[35em] bg-base-300 w-[80em] shadow-md rounded-lg mt-12">
-          <p className="text-xl md:text-2xl font-light  prose">
+        <form className="flex flex-col gap-1 items-center justify-center p-0  h-[38em] bg-base-300 w-[80em] shadow-md rounded-lg mt-5">
+          <p className="text-xl md:text-2xl font-light !mt-2  prose">
             Edit Landing page
           </p>
-          <div className="flex flex-col gap-3 w-[40em]">
+          <div className="flex flex-col gap-0 w-[40em]">
             <label className="form-control  w-full">
               <div className="label">
                 <span className="label-text">Brand Name</span>

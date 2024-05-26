@@ -18,7 +18,8 @@ const Login = () => {
       setTimeout(() => {
         dispatch(setLoggedIn(true));
         setLoading(false);
-        router.push("/"); 
+        router.push("/");
+        localStorage.setItem("isLoggedIn", true);
       }, 1200);
     }
   };
